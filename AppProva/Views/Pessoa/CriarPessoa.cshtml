@@ -1,0 +1,133 @@
+﻿@model AppProva.Models.Pessoa
+
+@{
+    ViewData["Title"] = "CriarPessoa";
+}
+
+<h2 class="mb-4"></h2>
+<div class="card mb-4">
+    <div class="card-body">
+        <h4 class="modal-title"></h4>
+    </div>
+</div>
+
+<div class="card mb-4  col-md-12">
+    <div class="card-body">
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label>Tipo de Pessoa <b>*</b></label>
+                <select class="form-control" name="tipo" id="tipo">
+                    <option value="0" selected>Selecione</option>
+                    <option value="F">Física</option>
+                    <option value="J">Jurídica</option>
+                </select>
+                <input type="hidden" class="form-control" name="txtCodigo" id="txtCodigo" />
+            </div>
+        </div>
+        <div id="idFisica" class="idFisica">
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label>Nome <b>*</b></label>
+                    <input type="text" class="form-control" name="txtNome" id="txtNome" maxlength="50" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Sobrenome <b>*</b></label>
+                    <input type="text" class="form-control" name="txtSobrenome" id="txtSobrenome" maxlength="50" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label>Cpf <b>*</b></label>
+                    <input type="text" class="form-control" name="txtCpf" id="txtCpf" placeholder="Ex: 000.000.000-00" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Data de Nascimento <b>*</b></label>
+                    <input type="date" class="form-control" name="dtNascimento" id="dtNascimento" />
+                </div>
+            </div>
+
+        </div>
+
+        <div id="idJuridica" class="idJuridica">
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label>Razão Social <b>*</b></label>
+                    <input type="text" class="form-control" name="txtRazaoSocial" id="txtRazaoSocial" maxlength="50" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Nome Fantasia <b>*</b></label>
+                    <input type="text" class="form-control" name="txtNomeFantasia" id="txtNomeFantasia" maxlength="50" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label>Cnpj <b>*</b></label>
+                    <input type="text" class="form-control" name="txtCnpj" id="txtCnpj" placeholder="Ex: 00.000.000/0000-00" />
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label>Cep <b>*</b></label>
+                <input type="text" class="form-control" name="txtCep" id="txtCep" placeholder="Ex: 19360000" onblur="pesquisacep(this.value);" maxlength="9" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Logradouro <b>*</b></label>
+                <input type="text" class="form-control" name="txtLogradouro" id="txtLogradouro" />
+            </div>
+            <div class="form-group col-md-2">
+                <label>Número <b>*</b></label>
+                <input type="text" class="form-control" name="txtNumero" id="txtNumero" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Complemento </label>
+                <input type="text" class="form-control" name="txtComplemento" id="txtComplemento" />
+            </div>
+            <div class="form-group col-md-4">
+                <label>Bairro <b>*</b></label>
+                <input type="text" class="form-control" name="txtBairro" id="txtBairro" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Cidade </label>
+                <input type="text" class="form-control" name="txtCidade" id="txtCidade" />
+            </div>
+            <div class="form-group col-md-1">
+                <label>UF <b>*</b></label>
+                <input type="text" class="form-control" name="txtUf" id="txtUf" maxlength="2" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-1">
+                <a class="btn btn-primary text-white" asp-action="Index">< Voltar</a>
+
+            </div>
+            <div class="form-group col-md-1">
+                <button type="button" class="btn btn-success" id="adicionar">+ Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/scripts/AdicionarPessoa.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <link href="~/css/toastr.min.css" rel="stylesheet" />
+    <script src="~/js/toastr.min.js"></script>
+    <script src="~/scripts/Util.js"></script>
+}
+

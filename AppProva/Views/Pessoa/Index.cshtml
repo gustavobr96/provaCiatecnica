@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<h2 class="mb-4"></h2>
+<div class="card mb-4">
+    <div class="card-body">
+        <a class="btn btn-success text-white" asp-action="CriarPessoa"> Novo Registro</a>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header bg-white font-weight-bold">
+        <h4 class="mb-4">Pessoas Cadastradas</h4>
+    </div>
+    <div class="card-body mb-4">
+        <div class="table-responsive" id="destroy">
+            <table class="table table-striped" id="ListaPessoas">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Cpf/Cnpj</th>
+                        <th scope="col">Nome/Razão Social</th>
+                        <th scope="col">Sobrenome/Nome Fantasia</th>
+                        <th scope="col">Data Nascimento</th>
+                        <th scope="col">CEP</th>
+                        <th scope="col">Logradouro</th>
+                        <th scope="col">Número</th>
+                        <th scope="col">Complemento</th>
+                        <th scope="col">Bairro</th>
+                        <th scope="col">Cidade</th>
+                        <th scope="col">UF</th>
+                        <th scope="col" style="min-width:80px!important">Opções</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class=" modal fade modal_confirm" id="modalConfirmarExclusaoPessoa">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> Excluir Pessoa</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    A confirmação resultará na exclusão permanente do item.
+                    <br /><br />
+                    Tem certeza que deseja excluir essa pessoa ?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="delete_pessoa">SIM</button>
+                <button type="button" id="btnVoltar" data-dismiss="modal" class="btn btn-danger">NÃO</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class=" modal fade modal_confirm" id="modalAlterar">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Alterar Pessoa</h4>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label>Tipo de Pessoa <b>*</b></label>
+                            <select class="form-control" name="tipo" id="tipo">
+                                <option value="0" selected>Selecione</option>
+                                <option value="F">Física</option>
+                                <option value="J">Jurídica</option>
+                            </select>
+                            <input type="hidden" class="form-control" name="txtCodigo" id="txtCodigo" />
+                        </div>
+                    </div>
+                    <div id="idFisica" class="idFisica">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label>Nome <b>*</b></label>
+                                <input type="text" class="form-control" name="txtNome" id="txtNome" maxlength="50" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Sobrenome <b>*</b></label>
+                                <input type="text" class="form-control" name="txtSobrenome" id="txtSobrenome" maxlength="15" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label>Cpf <b>*</b></label>
+                                <input type="text" class="form-control" name="txtCpf" id="txtCpf" placeholder="Ex: 000.000.000-00" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Data de Nascimento <b>*</b></label>
+                                <input type="date" class="form-control" name="dtNascimento" id="dtNascimento" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="idJuridica" class="idJuridica">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label>Razão Social <b>*</b></label>
+                                <input type="text" class="form-control" name="txtRazaoSocial" id="txtRazaoSocial" maxlength="50" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Nome Fantasia <b>*</b></label>
+                                <input type="text" class="form-control" name="txtNomeFantasia" id="txtNomeFantasia" maxlength="50" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label>Cnpj <b>*</b></label>
+                                <input type="text" class="form-control" name="txtCnpj" id="txtCnpj" placeholder="Ex: 00.000.000/0000-00" />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label>Cep <b>*</b></label>
+                            <input type="text" class="form-control" name="txtCep" id="txtCep" placeholder="Ex: 19360000" onblur="pesquisacep(this.value);" maxlength="9" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Logradouro <b>*</b></label>
+                            <input type="text" class="form-control" name="txtLogradouro" id="txtLogradouro" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>Número <b>*</b></label>
+                            <input type="text" class="form-control" name="txtNumero" id="txtNumero" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Complemento </label>
+                            <input type="text" class="form-control" name="txtComplemento" id="txtComplemento" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Bairro <b>*</b></label>
+                            <input type="text" class="form-control" name="txtBairro" id="txtBairro" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Cidade </label>
+                            <input type="text" class="form-control" name="txtCidade" id="txtCidade" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label>UF <b>*</b></label>
+                            <input type="text" class="form-control" name="txtUf" id="txtUf" maxlength="2" />
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="alterar_pessoa">Alterar</button>
+                <button type="button" id="btnVoltar" data-dismiss="modal" class="btn btn-danger"> Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/scripts/Pessoa.js"></script>
+    <script src="~/scripts/Util.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+}
+
+
+
+
